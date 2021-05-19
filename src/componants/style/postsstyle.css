@@ -1,0 +1,8 @@
+.posts .userdetails .profileimage{
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    border-radius: 50%;
+    margin: 20px;
+    
+}

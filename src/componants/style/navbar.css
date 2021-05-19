@@ -1,0 +1,36 @@
+
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    width: 100%;
+    height: 8vh;
+    background-color: black;    
+}
+nav .navlist{
+    display: flex;
+    width: 40%;
+    list-style: none;
+    justify-content: space-between;
+    align-items: center;
+}
+nav .logo{
+    color: red;
+}
+nav .navlist .profile{
+    border-radius: 50%;
+    width: 50px;
+    height: 50pfx;
+}
+
+nav .navlist .profile img{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+nav .navlist li input{
+    border-radius: 20px !important;
+}
+
