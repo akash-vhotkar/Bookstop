@@ -1,9 +1,10 @@
 import {userState, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import { GoogleLogin} from 'react-google-login'
 import './style/login.css'
 const Login = ()=>{
     const [user  ,setuser] =  useState({userrname: "", password:""})
+    const history = useHistory();
     function handelsubmit(e){
     
         console.log(user);
@@ -17,8 +18,9 @@ const Login = ()=>{
     }
 
 
-    function successgoogle(){
-        
+    function successgoogle(res){
+        console.log("google response ", res);
+    
     }
 
 

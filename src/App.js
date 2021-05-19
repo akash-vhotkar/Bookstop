@@ -5,10 +5,14 @@ import Profile from './componants/Profile';
 import Posts from './componants/Posts';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+  
 
 
 import { BrowserRouter as Router , Route, Link,Switch} from 'react-router-dom'
 function App() {
+  toast("alert usin react")
   return (
     <Router>
       <Switch>
