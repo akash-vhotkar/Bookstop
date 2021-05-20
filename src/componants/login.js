@@ -1,26 +1,32 @@
 import {userState, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { GoogleLogin} from 'react-google-login'
-import './style/login.css'
+import './style/login.css';
+import { toast } from 'react-toastify';
+import {login} from '../actions/index';
+import { useDispatch } from 'react-redux';
+
+
 const Login = ()=>{
-    const [user  ,setuser] =  useState({userrname: "", password:""})
+    const [user  ,setuser] =  useState({username: "", password:""})
     const history = useHistory();
+    const dispatch = useDispatch();
     function handelsubmit(e){
-    
-        console.log(user);
         e.preventDefault();
-        
-        
-
+        dispatch(login(user, history));
     }
+    
     function failgoogle(){
+        toast("Internal server error")
         
     }
-
 
     function successgoogle(res){
-        console.log("google response ", res);
-    
+        const token = res?.tokenObj;
+        const result = res?.profileObj;
+        localStorage.setItem("profile", JSON.stringify({result, token}))
+        history.push("/");
+        toast("login siccessfully");
     }
 
 
@@ -32,7 +38,7 @@ const Login = ()=>{
               <form onSubmit={handelsubmit}>
                   <div className="form-group p-2">
                       <label className="w-100">Enter the username</label>
-                      <input type="text" value={user.userrname} onChange={(e)=> setuser({...user, username:e.target.value}) }  className="form-control w-100"  />
+                      <input type="text" value={user.username} onChange={(e)=> setuser({...user, username:e.target.value}) }  className="form-control w-100"  />
                   </div>
                   <div className="form-group p-2">
                       <label htmlFor="" className="w-100">Enter your password</label>

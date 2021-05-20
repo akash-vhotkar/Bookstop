@@ -1,16 +1,31 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'
-import { GoogleLogin} from 'react-google-login'
+import { Link, useHistory } from 'react-router-dom'
+import { GoogleLogin} from 'react-google-login';
+import {register} from '../actions/index'
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 const Register = () => {
     const [user, setuser ] = useState({username :"", password: "", confirm_password: "", name: ""})
+    const history = useHistory();
+    const dispatch = useDispatch();
     function handelregister(e){
         e.preventDefault();
-        
+        console.log("Register fucntion is called", user);
+
+        dispatch(register(user, history));
     }
-    function successgoogle(){
+
+    function successgoogle(res){
+        const token = res?.tokenObj;
+        const result = res?.profileObj;
+        localStorage.setItem("profile", JSON.stringify({result, token}))
+        history.push("/");
+        toast("login siccessfully");
 
     }
-    function failgoogle(){
+
+    function failgoogle(res){
+        toast("Internal server error")
 
     }
     return (

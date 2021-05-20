@@ -8,7 +8,7 @@ const auth = () => {
             try {
                 const olduser = await userdb.findOne({ username: username });
                 if (olduser) {
-                    const validpass = bcrypt.compare(password, olduser.password);
+                    const validpass = await bcrypt.compare(password, olduser.password);
                     if (validpass) {
                         const token = await jwt.sign({ username: username }, "secret", { expiresIn: "1h" });
                         res.status(200).json({err:0, message: "Login successfull", data :{token ,result: olduser}})
@@ -29,7 +29,9 @@ const auth = () => {
 
         },
         async Register(req, res) {
+            console.log("req body is the method  ",req.body);
             const { username, password, name } = req.body;
+
             try {
                 const olduser = await userdb.findOne({ username: username });
                 if (olduser) {

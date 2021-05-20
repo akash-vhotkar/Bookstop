@@ -3,7 +3,7 @@ import Login from './componants/login';
 import Register from './componants/register';
 import Profile from './componants/Profile';
 import Posts from './componants/Posts';
-
+import Createpost from './componants/createpost';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { BrowserRouter as Router , Route, Link,Switch} from 'react-router-dom'
 function App() {
-  toast("alert usin react")
   return (
     <Router>
       <Switch>
@@ -32,7 +31,9 @@ function App() {
          
           <Register></Register>
         </Route>
-        <Route>
+        <Route exact path="/createpost">
+          <Navbar></Navbar>
+          <Createpost></Createpost>
 
         </Route>
 
