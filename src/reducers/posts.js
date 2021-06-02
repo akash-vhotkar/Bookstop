@@ -1,7 +1,7 @@
 const postsreducers =  (state=[],action)=>{
     switch (action.type) {
-        case "posts":
-            return state;
+        case "GETPOSTS":
+            return action.data;
     
         default:
             return state

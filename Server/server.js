@@ -4,13 +4,17 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const app =  express();
 const jwt =  require('jsonwebtoken');
+const postsdb = require('./model/posts');
 mongoose.connect("mongodb+srv://akash:akash1234@cluster0.4ayge.mongodb.net/bookmytaxi?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("the database is connected successfully...");
 }).catch(err => {
     console.log(err);
 })
 
-app.use(express.json())
+
+
+
+app.use(express.json({limit:"50mb"}))
 
 app.use(cors({
     origin: "http://localhost:3000"
@@ -19,6 +23,7 @@ const jwtauthorization= (req,res , next)=>{
     const authheader = req.headers.authorization;
     if( authheader){
         const token = authheader.split(' ')[1];
+        console.log("the authheader is fired and its story is  ", token);
         jwt.verify(token, 'secret', (err, user)=>{
             if(err) console.log(err);
             req.user = user;
@@ -26,14 +31,24 @@ const jwtauthorization= (req,res , next)=>{
         })
     }
     else{
-        res.status(401).json({err: 1, message:"Authentication require"})
+        res.status(401).json({err: 1, message:"please login "})
     }
     
 }
 
 
+app.get("/getposts",  async (req,res)=>{
+    try{
+        const posts = await postsdb.find();
+        res.status(200).json({err: 0 , message:"Posts are fetch", data :posts});
 
-app.use('/posts', require('./Route/Posts'))
+    }
+    catch(err){
+        if(err) res.status(400).json({err: 1, message:"Internal server error"})
+    }
+    
+})
+app.use('/posts',jwtauthorization ,require('./Route/Posts'))
 app.use('/auth', require('./Route/Auth'))
 app.use('/user', require('./Route/User'))
 
@@ -43,6 +58,6 @@ const port = process.env.PORT;
 app.listen(port , (err)=>{
     if(err) console.log(err);
     else{
-        console.log("server is running on port 7600");
+        console.log(`server is running on port ${port}`);
     }
 })

@@ -26,7 +26,6 @@ const auth = () => {
                     res.status(500).json({ err: 1, message: "Internal server error" })
                 }
             }
-
         },
         async Register(req, res) {
             console.log("req body is the method  ",req.body);
@@ -46,7 +45,7 @@ const auth = () => {
 
             }
             catch (err) {
-                console.log(err);
+                consolse.log(err);
                 if (err) res.status(500).json({ err: 1, message: "Internal server error" })
             }
         },

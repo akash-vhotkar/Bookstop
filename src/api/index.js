@@ -10,3 +10,7 @@ API.interceptors.request.use((req)=>{
 
 export const login  =  (formdata)=> API.post('/auth/login', formdata);
 export const register = (formdata)=> API.post('/auth/register', formdata);
+export const createpost = (postdata )=> API.post('/posts/createpost', postdata)
+
+
+export const getposts  = () => API.get('/getposts');

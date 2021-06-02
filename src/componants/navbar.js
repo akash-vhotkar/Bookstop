@@ -2,20 +2,27 @@ import './style/navbar.css'
 import { Link ,useLocation,useHistory} from 'react-router-dom'
 import {useState, useEffect}  from 'react'
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import {loginagain} from '../actions/index';
 const Navbar = () => {
     const history = useHistory();
     const locatiion = useLocation();
     const dispatch = useDispatch();
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    toast.configure();
+    if(localStorage.getItem("profile")){
+        dispatch(loginagain(JSON.parse(localStorage.getItem('profile')), history) )
+
+    }
     useEffect(()=>{
-        setUser(JSON.parse(localStorage.getItem('profile')))
+            setUser(JSON.parse(localStorage.getItem('profile')))
     },[locatiion])
     function handellogout(){
         dispatch({type:"LOGOUT"});
-       history.push("/")
-        
+       history.push("/");   
+       toast("Log out successfully")
     }
-console.log("user of the navbar  ", user?.result.name);
+
     return (
         <nav>
             <div className="logo">

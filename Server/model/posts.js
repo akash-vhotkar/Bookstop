@@ -1,29 +1,36 @@
 const mongoose = require('mongoose');
 module.exports = mongoose.model("posts", {
-    username: {
-        type:String,
-        required: true
-    },
     message: {
-        type:String,
+        type: String,
         required: true
-
     },
-    postimg: {
-        type:Array,
-        required : false
-    },
-    comments: {
-        type:String,
+    bookname: {
+        type: String,
         required: false
-    },
-    likes:{
-        type:Number,
+    }
+    , selectedimage: {
+        type: Array,
+        required: false
+    }
+    , amount: {
+        type: String,
         required: true,
+        default: true
+    }
+    , publishyear: {
+        type: String,
+        required: true
+    }
+    , sem: {
+        type: Number,
+        required: true
+    },
+    likes: {
+        type: Number,
         default: 0
     },
-    bit:{
-        type:Number,
-        required : true
+    time: {
+        type:Date,
+        default: new Date()
     }
 })

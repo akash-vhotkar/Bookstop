@@ -1,5 +1,17 @@
 import './style/postsstyle.css'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { getposts } from '../actions/index'
+import Post from './post'
 const Posts = () => {
+
+    const authdata = useSelector(state => state.AUTH.authdata);
+    const posts = useSelector(state => state.POSTS);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getposts())
+    }, [])
+
     return (
         <div className="container posts">
             <div className="row">
@@ -46,25 +58,29 @@ const Posts = () => {
 
                 </div>
                 <div className="col-md-8 ">
-                    <div clasName="post">
-                        <p>the username is </p>
-                        <p>image of the books</p>
-                        <p>commnets  about the book</p>
-                        <p>bits bout the user</p>
+                    {posts.map((post) => {
+                        <div key={post._id}>
+                          
+                           <Post post={post} name={"akash vhotkar"}></Post>
+                        </div>
+                    })}
 
-                    </div>
                 </div>
                 <div className="col-md-1 userdetails">
-                    <div className="profileimage">
-                        <img src="" alt="" />
+                    {authdata ? (<div>
+                        <div className="profileimage">
+                            <img src="" alt="" />
 
-                    </div>
-                    <div className="w-100 ">
-                        <p className="text-center">the username </p>
-                        <p>connections</p>
-                        <p>selled books</p>
-                        <p>sell book </p>
-                    </div>
+                        </div>
+                        <div className="w-100 ">
+                            <p >Hello {authdata.result.name} </p>
+                            <p>connections</p>
+                            <p>selled books</p>
+                            <p>sell book </p>
+                        </div>
+                    </div>) : null}
+
+
                 </div>
             </div>
         </div>

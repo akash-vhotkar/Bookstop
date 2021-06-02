@@ -1,4 +1,4 @@
-import {userState, useState} from 'react';
+import { useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { GoogleLogin} from 'react-google-login'
 import './style/login.css';
@@ -12,15 +12,14 @@ const Login = ()=>{
     const history = useHistory();
     const dispatch = useDispatch();
     function handelsubmit(e){
+        
         e.preventDefault();
         dispatch(login(user, history));
     }
-    
     function failgoogle(){
         toast("Internal server error")
         
     }
-
     function successgoogle(res){
         const token = res?.tokenObj;
         const result = res?.profileObj;
@@ -28,7 +27,6 @@ const Login = ()=>{
         history.push("/");
         toast("login siccessfully");
     }
-
 
     
     return(

@@ -5,7 +5,7 @@ import Profile from './componants/Profile';
 import Posts from './componants/Posts';
 import Createpost from './componants/createpost';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
   
 
