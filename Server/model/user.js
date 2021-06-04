@@ -19,5 +19,10 @@ module.exports  = mongoose.model("User",{
     imageUrl: {
         type:Array,
         required: false
+    },
+    followers:{
+        type:Number,
+        required: false,
+        default: 0
     }
 })

@@ -52,10 +52,9 @@ export const createpost  = (postdata, history)=> async (dispatch)=>{
     try{
         const {data} =  await api.createpost(postdata);
         if(data.err===0){
-        toast("post created successfully");
-        
-        history.push("/");
-        dispatch({type:"GETPOSTS", data : data.data})
+            toast("post created successfully");
+            history.push("/");
+            dispatch({type:"GEfTPOSTS", data : data.data})
 
         }
         else{
@@ -83,4 +82,12 @@ export const getposts =  () =>  async (dispatch)=>{
         toast("software error")
     }
     
+}
+export const searchbookbyname = (bookname)=> async (dispatch)=>{
+    try{
+        dispatch({type: "SEARCHBYBOOKNAME" , bookname: bookname });
+    }
+    catch(err){
+        if(err) console.log(err);
+    }
 }

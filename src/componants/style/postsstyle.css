@@ -7,24 +7,56 @@
 }
 .posts .userdetails .profileimage img{
     border-radius: 50%;
-    
+    width: 100%;
 }
 
 .temp .card{
     margin: auto;
     margin-top: 20px;
 }
+.temp .card .creator img{
+    width: 10%;
+    border-radius: 50%;
+    
+}
+.temp .card .creator .data{
+  display: flex;
+  align-items: center;
+
+}
+.temp .card .creator .data h5{
+    padding-left: 10px;
+    cursor: pointer;
+
+    
+}
+.temp .card .cretor .data h5:hover{
+    text-underline-position: below;
+    color: blueviolet;
+}
+.temp .card .creator .maindiv{
+    width: 90%;
+    height: 90%;
+    display: flex;
+    color: blue;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    
+}
+.temp .card .cretor .maindiv .text{
+    padding-left: 30px;
+}
 .temp .card .creator{
     display: flex;
-    justify-content: space-between;
-}
-.temp .card .creator div{
-    
+    justify-content: space-evenly;
+   
+  
 }
 .temp .card .icons div{
     padding: 10px;
 }
 .temp .card .icons{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     cursor: pointer;
 }
