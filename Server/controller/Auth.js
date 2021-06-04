@@ -28,8 +28,8 @@ const auth = () => {
             }
         },
         async Register(req, res) {
-            console.log("req body is the method  ",req.body);
-            const { username, password, name } = req.body;
+          
+            const { username, password, name, imageUrl } = req.body;
 
             try {
                 const olduser = await userdb.findOne({ username: username });
@@ -38,7 +38,7 @@ const auth = () => {
                 }
                 else {
                     const hashpassword = await bcrypt.hash(password, 12);
-                    const newuser = await userdb.create({ name: name, username: username, password: hashpassword });
+                    const newuser = await userdb.create({ name: name, username: username, password: hashpassword , imageUrl: imageUrl});
                     const token = await jwt.sign({ username: username }, 'secret', { expiresIn: '1h' });
                     res.status(200).json({ err: 0, message: "Registration successfull", data: { token, result: newuser } })
                 }

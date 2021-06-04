@@ -6,14 +6,15 @@ import FileBase64 from 'react-file-base64';
 import {  toast } from 'react-toastify';
 import { createpost} from '../actions/index'
 const Createpost = ()=>{
-    const [post ,setpost] = useState({message: "", bookname:"", selectedimage:[], amount: 0, publishyear: "", sem : 1});
     const  user = useSelector(state=> state.AUTH.authdata);
+    const [post ,setpost] = useState({message: "", bookname:"", selectedimage:[], amount: 0, publishyear: "", sem : 1, userid: user._id});
+   
     const history = useHistory();
     const dispatch = useDispatch();
     function handelcreatepost(e){
         e.preventDefault();
         console.log("thise is a post of the file",post);
-        dispatch(createpost(post, history));
+        dispatch(createpost(post, history ));
         
 
     }

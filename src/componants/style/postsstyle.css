@@ -1,8 +1,30 @@
 .posts .userdetails .profileimage{
     width: 200px;
     height: 200px;
-    background-color: red;
     border-radius: 50%;
     margin: 20px;
     
+}
+.posts .userdetails .profileimage img{
+    border-radius: 50%;
+    
+}
+
+.temp .card{
+    margin: auto;
+    margin-top: 20px;
+}
+.temp .card .creator{
+    display: flex;
+    justify-content: space-between;
+}
+.temp .card .creator div{
+    
+}
+.temp .card .icons div{
+    padding: 10px;
+}
+.temp .card .icons{
+    font-size: 1.5rem;
+    cursor: pointer;
 }

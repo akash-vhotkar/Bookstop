@@ -4,15 +4,19 @@ import { GoogleLogin} from 'react-google-login';
 import {register} from '../actions/index'
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import FileBase64 from 'react-file-base64'
 const Register = () => {
-    const [user, setuser ] = useState({username :"", password: "", confirm_password: "", name: ""})
+    const [user, setuser ] = useState({username :"", password: "", confirm_password: "", name: "", imageUrl:[]})
     const history = useHistory();
     const dispatch = useDispatch();
     function handelregister(e){
         e.preventDefault();
-        console.log("Register fucntion is called", user);
-
-        dispatch(register(user, history));
+        if(user.username===""){
+            toast("please enter the username")
+        }
+        else if(user.password !== user.confirm_password) toast("password and confirm password does not match")
+        else if(user.name=== "") toast("please enter your name")
+        else       dispatch(register(user, history));
     }
 
     function successgoogle(res){
@@ -50,9 +54,15 @@ const Register = () => {
                                 <label htmlFor="">Enter your password</label>
                                 <input type="password" className="form-control" value={user.password} onChange={(e)=>  setuser({...user, password: e.target.value})} />
                             </div>
+                            
                             <div className="form-group">
                                 <label>Enter your confirm password</label>
                                 <input type="password" className="form-control" value={user.confirm_password}  onChange={(e)=> setuser({...user, confirm_password: e.target.value})} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="">selecte the image </label>
+                                <FileBase64 className="btn btn-primary" type="file" multiple={false} onDone={({ base64 }) => setuser({...user, imageUrl: base64})} />
+
                             </div>
                             <div className="form-group">
                                 <input type="submit" value="Register" className="btn btn-primary form-control" />

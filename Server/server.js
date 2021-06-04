@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const app =  express();
 const jwt =  require('jsonwebtoken');
 const postsdb = require('./model/posts');
-mongoose.connect("mongodb+srv://akash:akash1234@cluster0.4ayge.mongodb.net/bookmytaxi?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect("mongodb://localhost:27017/bookstop", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("the database is connected successfully...");
 }).catch(err => {
     console.log(err);

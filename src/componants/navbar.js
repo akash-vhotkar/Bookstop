@@ -36,7 +36,8 @@ const Navbar = () => {
                 <li><input type="text" className="form-control" placeholder="Search users" /></li>
                 <li className="profile">
                     <div class="dropdown">
-                    <img className="dropbtn" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                        {user?.result ? <img src={user.result.imageUrl[0]} alt="" />  :<img className="dropbtn" src="https://www.w3schools.com/howto/img_avatar.png" alt="" /> }
+                    
     
                         <div class="dropdown-content">
                      {user?.result ? <Link to="/profile">profile</Link>:<Link to="/login">login</Link>} 

@@ -9,7 +9,8 @@ const  postcontroller = ()=>{
                 const newpost = await postsdb.create(postdata);
                 if(newpost){
                     console.log("create post is fired in controller ",newpost);
-                    res.status(200).json({err: 0, message:"post created sucessfully"});
+                    const data =  await postsdb.find();
+                    res.status(200).json({err: 0, message:"post created sucessfully", data: data});
                 }
                 else{
                     res.status(200).json({err:1 , message:"post not created"})

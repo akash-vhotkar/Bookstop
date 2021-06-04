@@ -1,12 +1,18 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/postsstyle.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { getposts } from '../actions/index'
-import Post from './post'
+import Post from './post';
+import { FaThumbsUp, FaCommentDots, FaShare, FaPaperPlane } from 'react-icons/fa'
+
+
 const Posts = () => {
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
     const authdata = useSelector(state => state.AUTH.authdata);
     const posts = useSelector(state => state.POSTS);
+    console.log("posta of the page ", posts);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getposts())
@@ -58,21 +64,58 @@ const Posts = () => {
 
                 </div>
                 <div className="col-md-8 ">
-                    {posts.map((post) => {
-                        <div key={post._id}>
-                          
-                           <Post post={post} name={"akash vhotkar"}></Post>
-                        </div>
-                    })}
+                    <div className="temp">
+                        <h1>Welcome in bookstop</h1>
+                        {posts.map((post) => {
+                            return (
+                                <div key={post._id} className="mt-2">
+                                    <div className="card" style={{ width: "80%" }}>
+                                        <div className="creator"> 
+                                            <div> <img src="df" alt=" here is the image of the post creator "  /> <p>name of the creator </p></div>
+                                          
+                                            <div className="">Follow+</div>
+                                        </div>
+                                        <hr />
+                                        <div className="message"> <p>{post.message}</p></div>
+                                        <img className="card-img-top" src={post.selectedimage[0]} alt="Card image cap" />
+                                        <div className="card-body">
+                                            <p>the bookname is {post.bookname}</p>
+                                            <h1>{post.message}</h1>
+                                            <h1>{post.amount}</h1>
+
+                                            <a href="#" className="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                        <hr />
+                                        <div className="d-flex icons"> 
+                                            <div>  <FaThumbsUp /> like  </div>
+                                            <div><FaCommentDots></FaCommentDots> comments</div>
+                                            <div> <FaShare></FaShare> share</div>
+                                            <div> <FaPaperPlane></FaPaperPlane> send </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+
+                                </div>
+                            )
+
+
+                        })}
+                    </div>
+
 
                 </div>
                 <div className="col-md-1 userdetails">
                     {authdata ? (<div>
                         <div className="profileimage">
-                            <img src="" alt="" />
-
+                        {user?.result ? <img src={user.result.imageUrl[0]} alt="" />  :<img className="dropbtn" src="https://www.w3schools.com/howto/img_avatar.png" alt="" /> }
+                    
                         </div>
-                        <div className="w-100 ">
+                        <div className="w-100  mt-5">
                             <p >Hello {authdata.result.name} </p>
                             <p>connections</p>
                             <p>selled books</p>

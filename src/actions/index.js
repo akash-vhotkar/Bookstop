@@ -53,7 +53,10 @@ export const createpost  = (postdata, history)=> async (dispatch)=>{
         const {data} =  await api.createpost(postdata);
         if(data.err===0){
         toast("post created successfully");
+        
         history.push("/");
+        dispatch({type:"GETPOSTS", data : data.data})
+
         }
         else{
             toast(data.message);
