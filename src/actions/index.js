@@ -68,6 +68,51 @@ export const createpost  = (postdata, history)=> async (dispatch)=>{
     }
 }
 
+export const searchbookbyname = (bookname)=> async (dispatch)=>{
+    try{
+        console.log("action ** ",bookname);
+        const {data} = await api.searchbyname(bookname);
+        dispatch({type: "SEARCHBYNAME" , data: data.data});
+    }
+    catch(err){
+        if(err) console.log(err);
+    }
+}
+export const searchbyamount= (minamount , maxamount)=> async (dispatch)=>{
+    try{
+      const {data} = await api.seachbyamount(minamount, maxamount);
+      console.log("seach by amount is done ", data);
+        dispatch({type:"SEACHBYAMOUNT", data : data.data })
+
+
+    }catch(err){
+        if(err) console.log(err);
+    }
+}
+export const  searchbynameandamount= (minamount , maxamount , bookname)=> async (dispatch)=>{
+    try{
+        const {data} = await api.seachbynandm(minamount, maxamount, bookname)
+        dispatch({type:"SEARCHBYNANDM", data : data.data});
+    }
+    catch(err){
+        if(err) console.log(err);
+    }
+}
+
+
+export const  clearfilters = ()=> async (dispatch)=>{
+    try{
+        const {data} = await api.getposts();
+        if(data.err===0){
+           
+            dispatch({type:"GETPOSTS", data : data.data})
+        }
+    }
+    catch(err){
+        if(err) console.log(err);
+        toast("software error")
+    }
+}
 
 export const getposts =  () =>  async (dispatch)=>{
     try{
@@ -82,12 +127,4 @@ export const getposts =  () =>  async (dispatch)=>{
         toast("software error")
     }
     
-}
-export const searchbookbyname = (bookname)=> async (dispatch)=>{
-    try{
-        dispatch({type: "SEARCHBYBOOKNAME" , bookname: bookname });
-    }
-    catch(err){
-        if(err) console.log(err);
-    }
 }

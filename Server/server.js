@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const app =  express();
 const jwt =  require('jsonwebtoken');
 const postsdb = require('./model/posts');
+const postpubliccontroller = require('./controller/publicapi');
 mongoose.connect("mongodb://localhost:27017/bookstop", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("the database is connected successfully...");
 }).catch(err => {
@@ -48,6 +49,9 @@ app.get("/getposts",  async (req,res)=>{
     }
     
 })
+app.post("/searchbyname", postpubliccontroller().Searchbybookname)
+app.post("/seachbyamount", postpubliccontroller().Seachbyamount);
+app.post("/searchbynandm", postpubliccontroller().searchbynameandamount);
 app.use('/posts',jwtauthorization ,require('./Route/Posts'))
 app.use('/auth', require('./Route/Auth'))
 app.use('/user', require('./Route/User'))

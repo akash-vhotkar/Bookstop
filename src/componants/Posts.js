@@ -2,25 +2,46 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/postsstyle.css'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { getposts } from '../actions/index'
-import Post from './post';
+import { getposts, clearfilters, searchbyamount, searchbynameandamount } from '../actions/index'
 import { FaThumbsUp, FaCommentDots, FaShare, FaPaperPlane } from 'react-icons/fa'
 import { searchbookbyname} from '../actions/index'
+import { toast } from 'react-toastify';
+import Profile from './Profile';
 
 const Posts = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-
     const authdata = useSelector(state => state.AUTH.authdata);
     const posts = useSelector(state => state.POSTS);
-    console.log("posta of the page ", posts);
     const dispatch = useDispatch();
-    const [ searchbookname , setsearchbookname] = useState();
-     function  findbybookname(e){
+    const [ bookname , setsearchbookname] = useState("");
+    const [ searchamount , setsearchamount] = useState({minamount : 0, maxamount: 0});
+   
+    function  findbybookname(e){
         e.preventDefault();
-        console.log("bookname is ",searchbookname);
-        dispatch(searchbookbyname(searchbookname));
-    
+        if(searchamount.minamount!= 0 && searchamount.maxamount !=0){
+            dispatch(searchbynameandamount(searchamount.minamount, searchamount.maxamount, bookname))
+
+        }
+        else{
+            dispatch(searchbookbyname(bookname));
+
+        }
+        
     }
+    function handelseachbyamount(e){
+        e.preventDefault();
+        if(bookname!=""){
+            dispatch(searchbynameandamount(searchamount.minamount, searchamount.maxamount, bookname))
+        }
+        else{
+            console.log("seach by amount take place ",searchamount.minamount," and maxmimim amount ", searchamount.maxamount);
+        dispatch(searchbyamount(searchamount.minamount, searchamount.maxamount));
+        }
+    }
+    function clearfilter(e){
+        dispatch(clearfilters);
+    }
+
     useEffect(() => {
         dispatch(getposts())
     }, [])
@@ -30,38 +51,47 @@ const Posts = () => {
             <div className="row">
                 <div className="col-md-2 m-2">
                     <h4>All Filter </h4>
-                    <a href="">clear all filters</a>
+                    <a href="" onClick={clearfilter}>clear all filters</a>
 
                     <div className="allfileter mt-4">
-                        <form onSubmit={findbybookname}>
                             <div className="form-group w-100 ">
+                            <form onSubmit={findbybookname}>
+                       
                                 <label htmlFor="" className="w-100">Enter  the book name</label>
-                                <input type="text" className="w-100 m-2 form-control" onChange={(e)=> setsearchbookname(e.target.value)} placeholder="Enter the book name" />
+                                <input type="text" className="w-100 m-2 form-control" onChange={(e)=> { setsearchbookname(e.target.value)}} placeholder="Enter the book name" />
                                 <input type="submit" value="Serach" className="btn btn-primary w-100 m-2" />
+                                </form>
                             </div>
-                        </form>
+                       
                     </div>
                     <div className="price_range mt-4">
+                        <form  onSubmit={handelseachbyamount}>
                         <p>serach by price</p>
                         <div>
-                            <input type="checkbox" />
+                            <input type="checkbox" onChange={(e)=> {
+                                if(e.checked== false){
+                                    setsearchamount({...searchamount , minamount: 300 , maxamount: 400})
+
+                                }
+                                }} />
                             <label htmlFor="" >300-400 RS</label>
                         </div>
                         <div>
-                            <input type="checkbox" />
+                            <input type="checkbox" onClick={()=> setsearchamount({...searchamount , minamount: 400 , maxamount: 900}) } />
                             <label htmlFor="">400-900 RS</label>
                         </div>
 
                         <div>
-                            <input type="checkbox" />
+                            <input type="checkbox" onClick={()=> setsearchamount({...searchamount , minamount: 1000 , maxamount: 1400})} />
                             <label htmlFor="">1000-1400 RS</label>
                         </div>
                         <div>
-                            <input type="checkbox" />
+                            <input type="checkbox" onClick={()=> setsearchamount({...searchamount , minamount: 1300 , maxamount: 5400})} />
                             <label htmlFor="">1300-5400 RS</label>
+                            <input type="submit" value="Serach" className="btn btn-primary w-100 m-2" />
                         </div>
 
-
+                        </form>
                     </div>
                     <div className="searchbystars mt-4">
                         <p>Search by stars</p>
