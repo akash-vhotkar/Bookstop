@@ -70,9 +70,7 @@ export const createpost  = (postdata, history)=> async (dispatch)=>{
 
 export const searchbookbyname = (bookname)=> async (dispatch)=>{
     try{
-        console.log("action ** ",bookname);
-        const {data} = await api.searchbyname(bookname);
-        dispatch({type: "SEARCHBYNAME" , data: data.data});
+       dispatch({type: "UPDATEBOOKNAME", bookname: bookname})
     }
     catch(err){
         if(err) console.log(err);
@@ -80,10 +78,7 @@ export const searchbookbyname = (bookname)=> async (dispatch)=>{
 }
 export const searchbyamount= (minamount , maxamount)=> async (dispatch)=>{
     try{
-      const {data} = await api.seachbyamount(minamount, maxamount);
-      console.log("seach by amount is done ", data);
-        dispatch({type:"SEACHBYAMOUNT", data : data.data })
-
+      dispatch({type: "UPDATEMINANDMAX", minamount: minamount, maxamount:maxamount});
 
     }catch(err){
         if(err) console.log(err);

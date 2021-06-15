@@ -1,10 +1,11 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar  from './componants/navbar';
 import Login from './componants/login';
 import Register from './componants/register';
 import Profile from './componants/Profile';
 import Posts from './componants/Posts';
 import Createpost from './componants/createpost';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
   
