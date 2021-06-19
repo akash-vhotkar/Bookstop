@@ -22,6 +22,18 @@ const Navbar = () => {
        history.push("/");   
        toast("Log out successfully")
     }
+    function getfilterposts(){
+        dispatch({type:"thise is "});
+    }
+    const debouncer = (fun, delay)=>{
+        return function(){
+            setTimeout(() => {
+                
+            }, delay);
+        }
+        
+    }
+    const handelsearch = debouncer(getfilterposts, 300);
 
     return (
         <nav>

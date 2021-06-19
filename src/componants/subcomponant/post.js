@@ -2,8 +2,6 @@ import React from 'react';
 import { FaThumbsUp, FaCommentDots, FaShare, FaPaperPlane } from 'react-icons/fa'
 import { useState} from 'react'
 const Post = ({post}) => {
-    const [ bookname , setsearchbookname] = useState("");
-    const [ searchamount , setsearchamount] = useState({minamount : 0, maxamount: 0});
     return (
         <div className="POST">
                <div key={post._id} className="mt-2">

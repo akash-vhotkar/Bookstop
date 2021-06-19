@@ -113,7 +113,7 @@ export const getposts =  () =>  async (dispatch)=>{
     try{
         const {data} = await api.getposts();
         if(data.err===0){
-            toast("post fetch suucessfully")
+           
             dispatch({type:"GETPOSTS", data : data.data})
         }
     }

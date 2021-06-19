@@ -1,13 +1,14 @@
-const postsreducers =  (state=[],action)=>{
+const postsreducers =  (state={originaldata:[], copydata:[]},action)=>{
     switch (action.type) {
         case "GETPOSTS":
-            return action.data;
+            
+            return {...state, originaldata: action.data, copydata: action.data};
         case "SEARCHBYNAME":
-            return action.data
+            return {...state, copydata: action.data}
         case "SEACHBYAMOUNT":
-            return action.data
+            return {...state, copydata: action.data}
         case "SEARCHBYNANDM":
-            return action.data; 
+            return {...state, copydata: action.data}; 
         default:
             return state
     }
