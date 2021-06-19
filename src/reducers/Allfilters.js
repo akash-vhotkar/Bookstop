@@ -3,36 +3,38 @@ const inititalstate = {
   namesearch: false,
   pricesearch: false,
   searchname: "",
-  minamount: Number.MAX_VALUE,
-  maxamount:Number.MIN_VALUE
+  pricearray: []
 }
 
-const allfilters = (state= inititalstate,action)=>{
-    switch (action.type) {
-        case "ADDNAME":
-          
-          return {...state,  namesearch: true, searchname: action.data}
-        case "ADDPRICE":
-          const newsearcharray2 = [...state.searcharray , action.data];
-          const minamount = action.minamount < state.minamount ?  action.minamount : state.minamount;
-          const maxamount = action.maxamount > state.maxamount ?  action.maxamount : state.maxamount;
-            return {...state, searcharray:newsearcharray2, minamount : minamount , maxamount : maxamount }
-        case "CLEARFILTER":
-          return {...state, searcharray:[] , namesearch: false, pricesearch: false, minamount : 0, maxamount: 0};
-          case "REMOVEPRICEFILTER":
-            const afterremovesearcharray =  state.searcharray.filter(ele=> ele!= action.data);
-            if(afteremoveremovename.length ==0)
-              return {...state , searcharray : afterremovesearcharray ,minamount : Number.MAX_VALUE, maxamount : Number.MIN_VALUE , pricesearch: false};
-            else
-            return {...state , searcharray : afterremovesearcharray ,minamount : Number.MAX_VALUE, maxamount : Number.MIN_VALUE , pricesearch: true};
+const allfilters = (state = inititalstate, action) => {
+  switch (action.type) {
+    case "ADDNAME":
+      return { ...state, namesearch: true, searchname: action.data }
+    case "ADDPRICE":
+      const newsearcharray2 = [...state.searcharray, action.data];
+      const newpricearray = [...state.pricearray, action.minamount, action.maxamount];
+      return { ...state, searcharray: newsearcharray2, pricearray: newpricearray, pricesearch: true }
+    case "CLEARFILTER":
+      return { ...state, searcharray: [], namesearch: false, pricesearch: false, pricearray:[], searchname:""};
+    case "REMOVEPRICEFILTER":
+      const afterremovesearcharray = state.searcharray.filter(ele => ele != action.data);
+      const newpricearray2 = state.pricearray.filter(ele=>  ele!= action.minamount && ele!= action.maxamount);
+      console.log("new price arrat", newpricearray2, "and len", );
+      if(newpricearray2.length !=0) {
+        return {...state , searcharray: afterremovesearcharray, pricearray: newpricearray2};
 
-              case "REMOVENAMEFILTER":
-              const afteremoveremovename = state.searcharray.filter(ele=> ele!= action.data);
-              return {...state,  searchname : afteremoveremovename , namesearch: false, searchname: ""};
-        default:
-            return state;
-    }
-    
+      }
+      else {
+        return {...state , searcharray: afterremovesearcharray, pricearray: newpricearray2, pricesearch: false};
+
+      }
+    case "REMOVENAMEFILTER":
+      
+      return { ...state,  namesearch: false, searchname: "" };
+    default:
+      return state;
+  }
+
 }
 
 

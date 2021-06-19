@@ -54,7 +54,7 @@ export const createpost  = (postdata, history)=> async (dispatch)=>{
         if(data.err===0){
             toast("post created successfully");
             history.push("/");
-            dispatch({type:"GEfTPOSTS", data : data.data})
+            dispatch({type:"GETPOSTS", data : data.data})
 
         }
         else{

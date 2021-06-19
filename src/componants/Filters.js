@@ -6,21 +6,32 @@ const Filters =  ()=>{
     const [ bookname , setsearchbookname] = useState("");
     const [ searchamount , setsearchamount] = useState({minamount : 0, maxamount: 0});
     const [pricefilter , setpricefilter]  = useState({price1: false, price2: false, price3: false, price4 : false})
-
-    
+    const allfilters = useSelector(state=> state.ALLFILTERS);
     const dispatch = useDispatch();
-     
-    
-   
     function handelnamesearch(e){
         e.preventDefault();
+        setsearchbookname("");
         dispatch({type:"ADDNAME", data: bookname});
+
 
     }
     useEffect(()=>{
+        console.log("allfilter",allfilters);
+        if(allfilters.namesearch == true && allfilters.pricesearch== true){
+            dispatch({type:"NAMEANDPRICESEARCH", minamount: Math.min(...allfilters.pricearray), maxamount : Math.max(...allfilters.pricearray), name : allfilters.searchname})
+        }
+        else if(allfilters.namesearch == true && allfilters.pricesearch == false){
+            dispatch({type:"NAMESEARCH", name : allfilters.searchname})
+        }
+        else if(allfilters.namesearch == false && allfilters.pricesearch == true){
+            dispatch({type:"PRICESEARCH", minamount: Math.min(...allfilters.pricearray), maxamount : Math.max(...allfilters.pricearray)})
 
-        console.log("currrint price filter" ,  pricefilter);
-    },[pricefilter])
+        }
+        else{
+            dispatch({type:"CLEAR"})
+        }
+       
+    },[allfilters])
 
 
     function handelallsearches(){
@@ -45,17 +56,17 @@ const Filters =  ()=>{
         let checkedstatus =  e.target.checked;
         if(checkedstatus=== true){
             if(name== "price1")       dispatch({type:"ADDPRICE", data:"400-700",minamount: 400, maxamount: 700});
-            else if(name=="price2")       dispatch({type:"ADDPRICE", data:"700-900", minamount: 700, maxamount: 900});
-            else if(name==="price3")       dispatch({type:"ADDPRICE", data:"900-1300", minamount: 900, maxamount: 1300});
-            else  dispatch({type:"ADDPRICE", data:"1300-1500", minamount:1300, maxamount: 1500})
+            else if(name=="price2")       dispatch({type:"ADDPRICE", data:"800-1000", minamount: 800, maxamount: 1000});
+            else if(name==="price3")       dispatch({type:"ADDPRICE", data:"1100-1300", minamount: 1100, maxamount: 1300});
+            else  dispatch({type:"ADDPRICE", data:"1400-1600", minamount:1400, maxamount: 1600})
 
 
         }
         else{
             if(name== "price1")       dispatch({type:"REMOVEPRICEFILTER", data:"400-700", minamount: 400, maxamount: 700});
-            else if(name=="price2")    dispatch({type:"REMOVEPRICEFILTER", data:"700-900", minamount: 700, maxamount: 900});
-            else if(name==="price3")       dispatch({type:"REMOVEPRICEFILTER", data:"900-1300", minamount: 900, maxamount: 1300});
-            else  dispatch({type:"REMOVEPRICEFILTER", data:"1300-1500", minamount: 1300, maxamount: 1500})
+            else if(name=="price2")    dispatch({type:"REMOVEPRICEFILTER", data:"800-1000", minamount: 800, maxamount: 1000});
+            else if(name==="price3")       dispatch({type:"REMOVEPRICEFILTER", data:"1100-1300", minamount: 1100, maxamount: 1300});
+            else  dispatch({type:"REMOVEPRICEFILTER", data:"1400-1600", minamount: 1400, maxamount: 1600})
 
 
         }
@@ -93,34 +104,26 @@ const Filters =  ()=>{
                         </div>
                         <div >
                             <input type="checkbox"  checked={ pricefilter.price2} onChange={(e)=>handelchangeprice(e)}  name="price2" />
-                            <label htmlFor="">700-900 RS</label>
+                            <label htmlFor="">800-1000 RS</label>
                         </div>
 
                         <div >
                             <input type="checkbox"  checked={ pricefilter.price3} onChange={(e)=>handelchangeprice(e)}  name="price3" />
-                            <label htmlFor="">900-1300 RS</label>
+                            <label htmlFor="">1100-1300 RS</label>
                         </div>
 
                         <div >
                             <input type="checkbox"  checked={ pricefilter.price4} onChange={(e)=>handelchangeprice(e)}  name="price4" />
-                            <label htmlFor="">1300-1500 RS</label>
+                            <label htmlFor="">1400-1600 RS</label>
                         </div>
 
 
                         
                         
-                        <div>
-                            <input type="submit" value="Show all results" className="btn btn-primary w-100 m-2" />
-                        </div>
-
+                    
                         </form>
                     </div>
-                    <div className="searchbystars mt-4">
-                        <p>Search by stars</p>
-                        <div></div>
-
-                    </div>
-
+                    
         </div>
     )
 }
