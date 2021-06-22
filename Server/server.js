@@ -6,7 +6,7 @@ const app =  express();
 const jwt =  require('jsonwebtoken');
 const postsdb = require('./model/posts');
 const postpubliccontroller = require('./controller/publicapi');
-mongoose.connect("mongodb://localhost:27017/bookstop", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect("mongodb://localhost:27017/bookstop", { useNewUrlParser: true, useUnifiedTopology: true , useFindAndModify: true}).then(() => {
     console.log("the database is connected successfully...");
 }).catch(err => {
     console.log(err);
@@ -14,7 +14,7 @@ mongoose.connect("mongodb://localhost:27017/bookstop", { useNewUrlParser: true, 
 
 
 
-
+app.set()
 app.use(express.json({limit:"50mb"}))
 
 app.use(cors({
@@ -28,6 +28,7 @@ const jwtauthorization= (req,res , next)=>{
         jwt.verify(token, 'secret', (err, user)=>{
             if(err) console.log(err);
             req.user = user;
+            
             next();
         })
     }

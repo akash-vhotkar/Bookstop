@@ -48,10 +48,11 @@ const Navbar = () => {
                 <li><input type="text" className="form-control" placeholder="Search users" /></li>
                 <li className="profile">
                     <div class="dropdown">
-                        {user?.result ? <img src={user.result.imageUrl[0]} alt="" />  :<img className="dropbtn" src="https://www.w3schools.com/howto/img_avatar.png" alt="" /> }
+                        {user?.result ?                          Array.isArray(user.result.imageUrl) ?  <img src={user.result.imageUrl[0]} alt=""s />  :<img className="dropbtn" src={user.result.imageUrl} alt="" /> 
+ :<img className="dropbtn" src="https://www.w3schools.com/howto/img_avatar.png" alt="" /> }
                     
     
-                        <div class="dropdown-content">
+                        <div className="dropdown-content">
                      {user?.result ? <Link to="/profile">profile</Link>:<Link to="/login">login</Link>} 
                      {user?.result ? <Link to="/createpost">createpost</Link>:  <Link to="/register"> register</Link>} 
                      <a className="text-dark" onClick={handellogout}>log out</a>

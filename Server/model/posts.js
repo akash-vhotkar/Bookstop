@@ -32,5 +32,13 @@ module.exports = mongoose.model("posts", {
     time: {
         type:Date,
         default: new Date()
+    },
+    username: {
+        type:String,
+        required: false
+    },
+    userimage:{
+        type:Array,
+        required:true
     }
 })

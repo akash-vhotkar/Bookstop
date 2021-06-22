@@ -68,47 +68,7 @@ export const createpost  = (postdata, history)=> async (dispatch)=>{
     }
 }
 
-export const searchbookbyname = (bookname)=> async (dispatch)=>{
-    try{
-       dispatch({type: "UPDATEBOOKNAME", bookname: bookname})
-    }
-    catch(err){
-        if(err) console.log(err);
-    }
-}
-export const searchbyamount= (minamount , maxamount)=> async (dispatch)=>{
-    try{
-      dispatch({type: "UPDATEMINANDMAX", minamount: minamount, maxamount:maxamount});
-
-    }catch(err){
-        if(err) console.log(err);
-    }
-}
-export const  searchbynameandamount= (minamount , maxamount , bookname)=> async (dispatch)=>{
-    try{
-        const {data} = await api.seachbynandm(minamount, maxamount, bookname)
-        dispatch({type:"SEARCHBYNANDM", data : data.data});
-    }
-    catch(err){
-        if(err) console.log(err);
-    }
-}
-
-
-export const  clearfilters = ()=> async (dispatch)=>{
-    try{
-        const {data} = await api.getposts();
-        if(data.err===0){
-           
-            dispatch({type:"GETPOSTS", data : data.data})
-        }
-    }
-    catch(err){
-        if(err) console.log(err);
-        toast("software error")
-    }
-}
-
+// global actions
 export const getposts =  () =>  async (dispatch)=>{
     try{
         const {data} = await api.getposts();
@@ -119,7 +79,47 @@ export const getposts =  () =>  async (dispatch)=>{
     }
     catch(err){
         if(err) console.log(err);
+        console.log(err);
         toast("software error")
     }
     
+}
+
+
+// action of the post 
+export const likepost = (username, postid, likes)=> async (dispatch)=>{
+    try{
+
+        const res = await api.likepost(username, postid, likes);
+        if(res){
+            dispatch({type:"LIKE", data: {username, postid,likes}})
+        }
+        else {
+            toast("error")
+        }
+    
+
+    }catch(err){
+        if(err) console.log(err);
+        toast("software error")
+    }
+
+}
+
+export const dislike = (username, postid , likes )=> async(dispatch)=>{
+    try{
+        const res =   await api.dislikepost(username, postid, likes);
+        if(res.data.err==0){
+            dispatch({type:"DISLIKE", data :{username, postid, likes}});
+        
+        }
+        else{
+            toast("error ");
+        }
+    
+
+    }
+    catch(err){
+        if(err) console.log(err);
+    }
 }

@@ -8,6 +8,8 @@ const Filters =  ()=>{
     const [pricefilter , setpricefilter]  = useState({price1: false, price2: false, price3: false, price4 : false})
     const allfilters = useSelector(state=> state.ALLFILTERS);
     const dispatch = useDispatch();
+    
+    
     function handelnamesearch(e){
         e.preventDefault();
         setsearchbookname("");
@@ -15,8 +17,12 @@ const Filters =  ()=>{
 
 
     }
+    
+    
+    
+    
     useEffect(()=>{
-        console.log("allfilter",allfilters);
+       
         if(allfilters.namesearch == true && allfilters.pricesearch== true){
             dispatch({type:"NAMEANDPRICESEARCH", minamount: Math.min(...allfilters.pricearray), maxamount : Math.max(...allfilters.pricearray), name : allfilters.searchname})
         }
@@ -37,6 +43,9 @@ const Filters =  ()=>{
     function handelallsearches(){
         
     }
+    
+    
+    
     function handelpricesearch(e){
         e.preventDefault();
     }
@@ -47,10 +56,10 @@ const Filters =  ()=>{
         e.preventDefault();
         dispatch({type:"CLEARFILTER"});
         setsearchbookname("");
-        setpricefilter({price1: false, price2: false, price3: false, price4 : false});
-        
-        
+        setpricefilter({price1: false, price2: false, price3: false, price4 : false}); 
     }
+
+
     function handelchangeprice(e){
         let name= e.target.name;
         let checkedstatus =  e.target.checked;

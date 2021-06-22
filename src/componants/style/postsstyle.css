@@ -10,54 +10,68 @@
     width: 100%;
 }
 
-.temp .card{
+ .card{
     margin: auto;
     margin-top: 20px;
 }
-.temp .card .creator img{
-    width: 10%;
+ .card .creator img{
+    width: 25%;
+    height: 25%;
+    align-self: flex-start;
     border-radius: 50%;
     
 }
-.temp .card .creator .data{
+ .card .creator .data{
   display: flex;
   align-items: center;
 
 }
-.temp .card .creator .data h5{
+ .card .creator .data h5{
     padding-left: 10px;
     cursor: pointer;
 
     
 }
-.temp .card .cretor .data h5:hover{
+.card .cretor .data h5:hover{
     text-underline-position: below;
     color: blueviolet;
 }
+.card .creator {
+    display: flex;
+}
 
-.temp .card .creator .maindiv{
+.card .creator .text{
+    color: blue;
+    padding-right: 50px;
+    padding-top: 30px;
+
+}
+
+ .card .creator .maindiv{
     width: 90%;
     height: 90%;
     display: flex;
     color: blue;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     margin-top: 10px;
     
 }
-.temp .card .cretor .maindiv .text{
-    padding-left: 30px;
+.card .creator .maindiv h5:hover{
+    color: red;
+    text-decoration-line: underline;
+
+
 }
-.temp .card .creator{
-    display: flex;
-    justify-content: space-evenly;
-   
-  
+.card .creator .text:hover {
+    color: purple;
+    
 }
-.temp .card .icons div{
+ 
+.card .icons div{
     padding: 10px;
 }
-.temp .card .icons{
+ .card .icons{
     font-size: 1.2rem;
     cursor: pointer;
 }

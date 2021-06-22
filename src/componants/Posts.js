@@ -17,6 +17,9 @@ const Posts = () => {
    
     useEffect(() => {
         dispatch(getposts())
+        if(user != null){
+            dispatch({type:"LOGINAGAIN", data: authdata})
+        }
    
     }, [])
 

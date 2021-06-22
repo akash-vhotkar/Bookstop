@@ -24,5 +24,9 @@ module.exports  = mongoose.model("User",{
         type:Number,
         required: false,
         default: 0
+    },
+    selledbooks:{
+        type:Number,
+        default: 0
     }
 })

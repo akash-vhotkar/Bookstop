@@ -18,7 +18,16 @@ const postsreducers =  (state={originaldata:[], copydata:[]},action)=>{
             return  {...state, copydata : newcpydata3}
         case "CLEAR":
             const orifinaldata4 = state.originaldata;
-            return {...state, copydata:orifinaldata4}
+            return {...state, copydata:orifinaldata4};
+        case "LIKE":
+           const index= state.copydata.findIndex(post=>post._id == action.data.postid);
+           state.copydata[index].likes++;
+           return {...state, copydata: state.copydata}
+        case "DISLIKE": 
+            const index2 = state.copydata.findIndex(post=> post._id=== action.data.postid);
+            state.copydata[index2].likes--;
+            return {...state, copydata: state.copydata}
+            
         default:
             return state
     }

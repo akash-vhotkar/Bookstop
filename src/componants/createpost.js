@@ -7,9 +7,18 @@ import {  toast } from 'react-toastify';
 import { createpost} from '../actions/index'
 const Createpost = ()=>{
     const  user = useSelector(state=> state.AUTH.authdata);
-    const [post ,setpost] = useState({message: "", bookname:"", selectedimage:[], amount: 0, publishyear: "", sem : 1, userid: user._id});
-   
     const history = useHistory();
+    useEffect(() => {
+        if(user ===null){
+            toast("please login to Sell the book ")
+            history.push("/login");
+        }
+    }, [])
+    
+    const [post ,setpost] = useState({message: "", bookname:"", selectedimage:[], amount: 0, publishyear: "", sem : 1, userid: user.result._id, username:user.result.name, userimage: user.result.imageUrl});
+    console.log("  post is ",post);
+
+    
     const dispatch = useDispatch();
     function handelcreatepost(e){
         e.preventDefault();
@@ -19,12 +28,6 @@ const Createpost = ()=>{
 
     }
     
-    useEffect(() => {
-        if(user === null){
-            toast("please login to Sell the book ")
-            history.push("/login");
-        }
-    }, [])
     return(
         <div className="Cretepostform">
             <div className="handelform">

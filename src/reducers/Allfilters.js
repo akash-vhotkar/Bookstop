@@ -19,7 +19,6 @@ const allfilters = (state = inititalstate, action) => {
     case "REMOVEPRICEFILTER":
       const afterremovesearcharray = state.searcharray.filter(ele => ele != action.data);
       const newpricearray2 = state.pricearray.filter(ele=>  ele!= action.minamount && ele!= action.maxamount);
-      console.log("new price arrat", newpricearray2, "and len", );
       if(newpricearray2.length !=0) {
         return {...state , searcharray: afterremovesearcharray, pricearray: newpricearray2};
 

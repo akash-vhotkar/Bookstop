@@ -2,7 +2,7 @@ import Filter from './subcomponant/filter';
 import { useSelector} from 'react-redux';
 const Allfilters = ()=>{
     const allfilters  = useSelector(state=> state.ALLFILTERS);
-    console.log("allfuter",allfilters);
+    
     
     return (
         <div className="Allfilters">
