@@ -29,16 +29,30 @@ module.exports = mongoose.model("posts", {
         type: Number,
         default: 0
     },
+    location:{
+        type:String,
+        required: false,
+        defaul:"WordWide"
+    },
     time: {
         type:Date,
         default: new Date()
     },
-    username: {
+    name: {
         type:String,
         required: false
     },
     userimage:{
         type:Array,
         required:true
+    },
+    bids:{
+        type:Array,
+        required: false
+    },
+    status:{
+        type: Boolean,
+        required: false,
+        Default: false
     }
 })

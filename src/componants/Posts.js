@@ -7,8 +7,8 @@ import { searchbookbyname} from '../actions/index'
 import { toast } from 'react-toastify';
 import Post from './subcomponant/post';
 import Filters from './Filters';
-import Profile from  './Profile';
 import Allfilters from './Allfiltersblock';
+import Homeprofile from './Homeuserprofile';
 const Posts = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const authdata = useSelector(state => state.AUTH.authdata);
@@ -44,7 +44,7 @@ const Posts = () => {
 
                 </div>
                 <div className="col-md-2 userdetails">
-                    <Profile authdata={authdata} user={user}></Profile>
+                    <Homeprofile authdata={authdata} user={user}/>
 
                 </div>
             </div>

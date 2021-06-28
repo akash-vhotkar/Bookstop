@@ -5,28 +5,28 @@ import {register} from '../actions/index'
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import FileBase64 from 'react-file-base64'
+import { useEffect } from 'react';
 const Register = () => {
-    const [user, setuser ] = useState({username :"", password: "", confirm_password: "", name: "", imageUrl:[]})
+    const [user, setuser ] = useState({ password: "",email:"", confirm_password: "", name: "", imageUrl:[]})
     const history = useHistory();
     const dispatch = useDispatch();
     function handelregister(e){
         e.preventDefault();
-        if(user.username===""){
-            toast("please enter the username")
-        }
-        else if(user.password !== user.confirm_password) toast("password and confirm password does not match")
+        if(user.password !== user.confirm_password) toast("password and confirm password does not match")
         else if(user.name=== "") toast("please enter your name")
         else       dispatch(register(user, history));
     }
+    
+
+
 
     function successgoogle(res){
         const token = res?.tokenObj;
         const result = res?.profileObj;
-        localStorage.setItem("profile", JSON.stringify({result, token}))
-        history.push("/");
-        toast("login siccessfully");
+        dispatch(register(result, history));
 
     }
+   
 
     function failgoogle(res){
         toast("Internal server error")
@@ -37,19 +37,18 @@ const Register = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-7 ">
-
-
                         <h1>Register here</h1>
                         <form onSubmit={handelregister}>
 
                             <div className="form-group">
-                                <label htmlFor="">Enter your name</label>
-                                <input type="text" placeholder="Enter your name" value={user.name} onChange={(e)=> setuser({...user, name: e.target.value})}  className="form-control" />
+                                <label htmlFor="">Enter your username</label>
+                                <input type="text" className="form-control"  value={user.name} onChange={(e)=> setuser({...user, name:e.target.value})} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="">Enter your username</label>
-                                <input type="text" className="form-control" placeholder="Enter your username" value={user.username} onChange={(e)=> setuser({...user, username:e.target.value})} />
+                                <label htmlFor="">Enter your Email</label>
+                                <input type="email" className="form-control" value={user.email} onChange={(e)=>  setuser({...user, email: e.target.value})} />
                             </div>
+                            
                             <div className="form-group">
                                 <label htmlFor="">Enter your password</label>
                                 <input type="password" className="form-control" value={user.password} onChange={(e)=>  setuser({...user, password: e.target.value})} />

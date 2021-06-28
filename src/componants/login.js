@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 
 
 const Login = ()=>{
-    const [user  ,setuser] =  useState({username: "", password:""})
+    const [user  ,setuser] =  useState({name: "", password:""})
     const history = useHistory();
     const dispatch = useDispatch();
     function handelsubmit(e){
@@ -23,10 +23,8 @@ const Login = ()=>{
     function successgoogle(res){
         const token = res?.tokenObj;
         const result = res?.profileObj;
-        localStorage.setItem("profile", JSON.stringify({result, token}))
-        history.push("/");
-        toast("login siccessfully");
-    }
+        dispatch(login(result, history));
+           }
 
     
     return(
@@ -36,7 +34,7 @@ const Login = ()=>{
               <form onSubmit={handelsubmit}>
                   <div className="form-group p-2">
                       <label className="w-100">Enter the username</label>
-                      <input type="text" value={user.username} onChange={(e)=> setuser({...user, username:e.target.value}) }  className="form-control w-100"  />
+                      <input type="text" value={user.name} onChange={(e)=> setuser({...user, name:e.target.value}) }  className="form-control w-100"  />
                   </div>
                   <div className="form-group p-2">
                       <label htmlFor="" className="w-100">Enter your password</label>

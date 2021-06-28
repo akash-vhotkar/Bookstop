@@ -1,39 +1,19 @@
 import './style/navbar.css'
 import { Link ,useLocation,useHistory} from 'react-router-dom'
 import {useState, useEffect}  from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import {loginagain} from '../actions/index';
 const Navbar = () => {
     const history = useHistory();
-    const locatiion = useLocation();
     const dispatch = useDispatch();
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    toast.configure();
-    if(localStorage.getItem("profile")){
-        dispatch(loginagain(JSON.parse(localStorage.getItem('profile')), history) )
-
-    }
-    useEffect(()=>{
-            setUser(JSON.parse(localStorage.getItem('profile')))
-    },[locatiion])
+    
     function handellogout(){
         dispatch({type:"LOGOUT"});
        history.push("/");   
        toast("Log out successfully")
     }
-    function getfilterposts(){
-        dispatch({type:"thise is "});
-    }
-    const debouncer = (fun, delay)=>{
-        return function(){
-            setTimeout(() => {
-                
-            }, delay);
-        }
-        
-    }
-    const handelsearch = debouncer(getfilterposts, 300);
+   const user = useSelector(state=> state.AUTH.authdata);
 
     return (
         <nav>

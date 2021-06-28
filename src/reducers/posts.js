@@ -1,7 +1,6 @@
 const postsreducers =  (state={originaldata:[], copydata:[]},action)=>{
     switch (action.type) {
-        case "GETPOSTS":
-            
+        case "GETPOSTS": 
             return {...state, originaldata: action.data, copydata: action.data};
         case "SEARCHBYNAME":
             return {...state, copydata: action.data}
@@ -27,7 +26,9 @@ const postsreducers =  (state={originaldata:[], copydata:[]},action)=>{
             const index2 = state.copydata.findIndex(post=> post._id=== action.data.postid);
             state.copydata[index2].likes--;
             return {...state, copydata: state.copydata}
-            
+        case "BID":
+            const neworiginalsdata = state.originaldata.map(post=>{ if(post._id== action.postid ) post.bids.push(action.data) });
+             return {...state, originaldata: neworiginalsdata};
         default:
             return state
     }

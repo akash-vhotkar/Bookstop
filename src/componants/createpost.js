@@ -4,27 +4,33 @@ import { useState, useEffect  } from "react";
 import {useHistory} from 'react-router-dom'
 import FileBase64 from 'react-file-base64';
 import {  toast } from 'react-toastify';
-import { createpost} from '../actions/index'
+import { createpost, loginagain} from '../actions/index'
 const Createpost = ()=>{
-    const  user = useSelector(state=> state.AUTH.authdata);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  
     const history = useHistory();
-    useEffect(() => {
-        if(user ===null){
-            toast("please login to Sell the book ")
-            history.push("/login");
-        }
-    }, [])
+    const authdata = useSelector(state => state.AUTH.authdata);
     
-    const [post ,setpost] = useState({message: "", bookname:"", selectedimage:[], amount: 0, publishyear: "", sem : 1, userid: user.result._id, username:user.result.name, userimage: user.result.imageUrl});
-    console.log("  post is ",post);
-
+    useEffect(()=>{
+        console.log("authdata ");
+        if(authdata === null && user !== null){
+          dispatch(loginagain(JSON.parse(localStorage.getItem('profile')), history) )
+        }
+        else if(authdata== null && user == null){
+          toast("please login");
+          history.push("/login");
+        }
+      },[])
+     
+    
+    const [post ,setpost] = useState({message: "", bookname:"", selectedimage:[], amount: 0, publishyear: "", sem : 1,name:user.result.name, userimage: user.result.imageUrl, userid: user.result._id, location :""});
+    
     
     const dispatch = useDispatch();
     function handelcreatepost(e){
         e.preventDefault();
-        console.log("thise is a post of the file",post);
         dispatch(createpost(post, history ));
-        
+
 
     }
     
@@ -56,6 +62,14 @@ const Createpost = ()=>{
                     </label>
                     <input className="form-control w-100"  value={post.sem} onChange={(e)=> setpost({...post, sem: e.target.value})} type="text" placeholder="Enter the sem" />
                 </div>
+                <div className=" form-group p-2">
+                    <label  className="w-100">
+                    Enter the Location name 
+                    </label>
+                    <input className="form-control w-100"  value={post.location} onChange={(e)=> setpost({...post, location: e.target.value})} type="text" placeholder="Enter the sem" />
+                </div>
+      
+      
                 
                 
                 <div className="form-group p-2">

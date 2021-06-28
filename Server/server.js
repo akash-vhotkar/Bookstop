@@ -28,7 +28,6 @@ const jwtauthorization= (req,res , next)=>{
         jwt.verify(token, 'secret', (err, user)=>{
             if(err) console.log(err);
             req.user = user;
-            
             next();
         })
     }
@@ -50,9 +49,6 @@ app.get("/getposts",  async (req,res)=>{
     }
     
 })
-app.post("/searchbyname", postpubliccontroller().Searchbybookname)
-app.post("/seachbyamount", postpubliccontroller().Seachbyamount);
-app.post("/searchbynandm", postpubliccontroller().searchbynameandamount);
 app.use('/posts',jwtauthorization ,require('./Route/Posts'))
 app.use('/auth', require('./Route/Auth'))
 app.use('/user', require('./Route/User'))

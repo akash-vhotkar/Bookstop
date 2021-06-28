@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 import {useState} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { clearfilters} from '../actions/index'
 const Filters =  ()=>{
     const [ bookname , setsearchbookname] = useState("");
-    const [ searchamount , setsearchamount] = useState({minamount : 0, maxamount: 0});
     const [pricefilter , setpricefilter]  = useState({price1: false, price2: false, price3: false, price4 : false})
     const allfilters = useSelector(state=> state.ALLFILTERS);
     const dispatch = useDispatch();

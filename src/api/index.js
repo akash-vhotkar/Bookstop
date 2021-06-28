@@ -16,5 +16,12 @@ export const seachbyamount = (minamount, maxamount )=> API.post('/seachbyamount'
 export const seachbynandm = (minamount , maxamount ,bookname) => API.post("/searchbynandm", {minamount, maxamount, bookname});
 export const likepost  = (username , postid, likes)=> API.post("/posts/likepost", {username, postid, likes});
 export const getposts  = () => API.get('/getposts');
-
+export const bid =( postid, bidamount, bookname,biddername)=> API.post("/posts/bid", { postid, bidamount, bookname,biddername})
 export const dislikepost  = (username, postid , likes)=> API.post("/posts/dislikepost", {username , postid, likes})
+export const getbids = ()=>  API.get("/posts/getbids");
+
+
+
+
+
+
