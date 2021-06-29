@@ -38,7 +38,7 @@ const auth = () => {
                 }
                 else {
                     const hashpassword = await bcrypt.hash(password, 12);
-                    const newuser = await userdb.create({ name: name,  password: hashpassword , imageUrl: imageUrl});
+                    const newuser = await userdb.create({ name: name,  password: hashpassword , imageUrl: imageUrl,email:req.body.email});
                     const token = await jwt.sign({ name: name }, 'secret', { expiresIn: '1h' });
                     res.status(200).json({ err: 0, message: "Registration successfull", data: { token, result: newuser } })
                 }
@@ -48,10 +48,6 @@ const auth = () => {
                 console.log(err);
                 if (err) res.status(500).json({ err: 1, message: "Internal server error" })
             }
-        },
-        async checkuserexist(req, res) {
-
-
         }
     }
 }

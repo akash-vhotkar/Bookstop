@@ -26,8 +26,9 @@ const jwtauthorization= (req,res , next)=>{
         const token = authheader.split(' ')[1];
         console.log("the authheader is fired and its story is  ", token);
         jwt.verify(token, 'secret', (err, user)=>{
-            if(err) console.log(err);
+            if(err) res.status(401).json({err: 1, message:"please login"});
             req.user = user;
+        
             next();
         })
     }
