@@ -6,8 +6,40 @@ const userdb = require('../model/user');
 
 const postcontroller = () => {
     return {
+        async Follow(req,res){
+            const name =  req.user.name;
+            const postusername = req.body.postusername;
+            const postuserdata = await  userdb.findOne({name:postusername});
+            const followersarray =  postuserdata.FollowersArray;
+            const followers = postuserdata.followers++;
+            if(followersarray.includes(name)){
+                return res.status(400).json({err: 1 , message:"You Already follow"})
+            }
+            else{
+                const modified = await userdb.findOneAndUpdate({name: postuserdata},{$set: {FollowersArray: followersarray}, followers: followers},{});
+                if(modified != null){
+                    res.status(200).json({err: 0 ,message:"Follow done"})
+                }
+                else{
+                    res.status(401).json({err: 1, message:"Internal Server Error"})
+                }
+
+            }
+
+        },
+        async Comments(req,res){
+            try{
+                
+
+            }
+            catch(err){
+                if(err) res.status(500).json({err: 1,message:"Internal server error"})
+            }
+
+        },
         async Createpost(req, res) {
             let postdata = req.body;
+            postdata = {...postdata, comments: []};
             console.log("before ", postdata);
             if (Array.isArray(postdata.userimage) == false) {
                 postdata = { ...postdata, userimage: [postdata.userimage] }
@@ -172,13 +204,12 @@ const postcontroller = () => {
 
                 transporter.sendMail(info, (error, data) => {
                     if (error) {
-                        console.log("mail error", err);
+                     
                         res.status(500).json({ err: 1, message: "Internal server error" })
                     }
                     else {
                         transporter.sendMail(info2, (error, data) => {
                             if (error) {
-                                console.log(" maile rror", err);
                                 res.status(500).json({ err: 1, message: "Internal server error" })
                             }
                             else {

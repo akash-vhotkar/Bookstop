@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import * as api from '../api/index'
+import * as api from '../Api/index'
 toast.configure();
 export const login = (formdata, history) => async (dispatch) => {
     try {
@@ -7,6 +7,7 @@ export const login = (formdata, history) => async (dispatch) => {
         if(formdata?.googleId != undefined){
             formdata =  { password: formdata.googleId, name: formdata.name, }
         }
+        console.log(formdata);
         
             const { data } = await api.login(formdata);
         if(data.err===0){
@@ -15,8 +16,9 @@ export const login = (formdata, history) => async (dispatch) => {
         toast(data.message);
         }
         else{
-            
-            toast(data.message);
+            dispatch({type:"LOGOUT"});
+            history.push("/");   
+            toast("Log out successfully")
         }
 
         
@@ -53,9 +55,19 @@ export const register = (formdata, history) => async (dispatch) => {
         if (err) console.log(err);
     }
 }
-export const loginagain = (localdata, history )=> async (dispatch)=>{
+export const loginagain = (localdata, history, token )=> async (dispatch)=>{
     try{
-        dispatch({type:"LOGINAGAIN", data : localdata })
+        const res = await api.loginagain(token)
+        console.log("action res",res);
+        if(res.data.err==0){
+            dispatch({type:"LOGINAGRAIN", data: localdata});
+        }
+        else{
+            dispatch({type:"LOGOUT"})
+            toast("Please login");
+            history.push("/");
+             
+        }
        
         
     }
@@ -141,14 +153,17 @@ export const getbids = ()=> async(dispatch)=>{
     }
 }
 
-export const Bid =(postid, bidamount, bookname,biddername)=> async(dispatch)=>{
+export const Bid =(postid, bidamount, bookname,biddername, bidderemail)=> async(dispatch)=>{
     try{
-        const res = await api.bid(postid, bidamount, bookname,biddername);
+        console.log("meila",bidderemail);
+        const res = await api.bid(postid, bidamount, bookname,biddername, bidderemail);
+        
         if(res.data.err==0){
             dispatch({type:"BID", postid: postid , data: { postid:postid,
                 Bookname:bookname,
                 Biddername:biddername,
-               Bidamount:bidamount
+               Bidamount:bidamount,
+               Bidderemail: bidderemail
                 }})
             toast("Bid successfully done")
         
@@ -178,5 +193,29 @@ export const dislike = (username, postid , likes )=> async(dispatch)=>{
     }
     catch(err){
         if(err) console.log(err);
+    }
+}
+
+export const confirmbid = (data)=> async (dispatch)=>{
+    try{
+        const res = await api.confrimbid(data);
+        if(res.data.err==0){
+            const  res = await  api.getbids();
+            console.log("res of the bids ", res);
+            if(res.data.err===0){
+                dispatch({type: "GETBIDS", data: res.data.data})
+            }
+            else{
+                toast("Software error")
+            }
+    
+        }
+        else{
+            toast("Something went wront")
+        }
+    }
+    catch(err){
+        if(err) toast("please login")
+
     }
 }

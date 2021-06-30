@@ -25,5 +25,9 @@ module.exports  = mongoose.model("User",{
     selledbooks:{
         type:Number,
         default: 0
+    },
+    FollowersArray:{
+        type:Array,
+        required: true
     }
 })

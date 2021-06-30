@@ -3,7 +3,7 @@ import { Link ,useLocation,useHistory} from 'react-router-dom'
 import {useState, useEffect}  from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import {loginagain} from '../actions/index';
+import {loginagain} from '../Actions/index';
 const Navbar = () => {
     const history = useHistory();
     const dispatch = useDispatch();

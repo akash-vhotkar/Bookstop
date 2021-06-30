@@ -29,6 +29,8 @@ const postsreducers =  (state={originaldata:[], copydata:[]},action)=>{
         case "BID":
             const neworiginalsdata = state.originaldata.map(post=>{ if(post._id== action.postid ) post.bids.push(action.data) });
              return {...state, originaldata: neworiginalsdata};
+        case "COMMENT":
+         
         default:
             return state
     }

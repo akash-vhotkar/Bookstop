@@ -1,7 +1,7 @@
 import { combineReducers} from 'redux';
 import AUTH from './Auth';
-import POSTS from './posts';
-import PROFILE from './profile';
+import POSTS from './Posts';
+import PROFILE from './Profile';
 import SEARCHCREDENTIAL  from './Searchcredentials';
 import ALLFILTERS from './Allfilters';
 import BIDS from './Bid'

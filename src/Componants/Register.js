@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { GoogleLogin} from 'react-google-login';
-import {register} from '../actions/index'
+import {register} from '../Actions/index'
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import FileBase64 from 'react-file-base64'

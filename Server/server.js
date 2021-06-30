@@ -53,7 +53,16 @@ app.get("/getposts",  async (req,res)=>{
 app.use('/posts',jwtauthorization ,require('./Route/Posts'))
 app.use('/auth', require('./Route/Auth'))
 app.use('/user', require('./Route/User'))
-
+app.post('/verifytoken',(req,res)=>{
+    const token = req.body.token;
+    
+    jwt.verify(token, 'secret', (err, user)=>{
+        if(err) res.status(401).json({err: 1, message:"please login"});
+        else{
+            res.status(200).json({err: 0, message:"Login Successfully"});
+        }
+    })
+})
 
 const port = process.env.PORT;
 

@@ -4,7 +4,7 @@ import { useState, useEffect  } from "react";
 import {useHistory} from 'react-router-dom'
 import FileBase64 from 'react-file-base64';
 import {  toast } from 'react-toastify';
-import { createpost, loginagain} from '../actions/index'
+import { createpost, loginagain} from '../Actions/index'
 const Createpost = ()=>{
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   

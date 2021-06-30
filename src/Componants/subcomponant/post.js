@@ -6,8 +6,7 @@ import '../style/postsstyle.css'
 import { useHistory } from 'react-router-dom';
 import Comments from './Comments';
 import { toast } from 'react-toastify';
-import { likepost, dislike } from '../../actions/index';
-import {Bid} from '../../actions/index'
+import { likepost, dislike ,Bid} from '../../Actions/index';
 const Post = ({ post }) => {
     const history = useHistory();
     const authdata = useSelector(state => state.AUTH.authdata);
@@ -28,8 +27,9 @@ const Post = ({ post }) => {
         if(authdata){
             const postid = e.target.dataset.postid;
             const bookname = e.target.dataset.bookname;
-            const biddername = authdata.result.username;
-            dispatch(Bid(postid, bidamount, bookname,biddername));
+            const biddername = authdata.result.name;
+            const bidderemail = authdata.result.email;
+            dispatch(Bid(postid, bidamount, bookname,biddername, bidderemail));
             setbidamount(0);
 
         }
@@ -77,19 +77,7 @@ const Post = ({ post }) => {
 
 
     }
-    function handelfollow(e) {
-        if (authdata) {
-
-
-        }
-        else {
-            history.push("/login");
-            toast("please login ");
-
-        }
-
-    }
-
+ 
 
 
 
@@ -107,7 +95,6 @@ const Post = ({ post }) => {
                                 <h5>{post.name} </h5></div>
 
                         </div>
-                        <div className="text">Follow+</div>
                     </div>
 
                     <div className="message">
@@ -128,14 +115,14 @@ const Post = ({ post }) => {
                             </div>
                             <div> <button className="btn btn-primary" data-postid= {post._id} data-bookname={post.bookname} onClick={(e)=> handelbid(e)}> Bid</button> </div>
                         </div>
-                        <div className={post._id} style={{ display: "none" }}>
+                        <div className={post._id} >
                             <div>
                                 <h1>the previous comments </h1>
                             </div>
                             <div className="d-flex">
 
                                 <input type="text" onChange={(e) => setmessage(e.target.value)} className=" w-100" name="" id="" placeholder="Enter your message " />
-                                <button className="btn btn-primary w-20" type="submit">post</button>
+                                <button className="btn btn-primary w-20" type="submit" data-postid={post._id}>post</button>
 
                             </div>
                         </div>

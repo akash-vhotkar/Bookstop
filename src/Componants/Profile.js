@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import { toast } from 'react-toastify';
-import {getbids, loginagain} from '../actions/index';
+import {getbids, loginagain, confirmbid} from '../Actions/index';
 
 const Profile = ()=>{
     const authdata = useSelector(state => state.AUTH.authdata);
@@ -28,7 +28,25 @@ const Profile = ()=>{
     }
   },[])
 
- 
+  function handelconfirmbid(e){
+    console.log(e);
+    const selectedbid = {
+       Bidamount :e.target.dataset.bidamount,
+     Biddername : e.target.dataset.biddername,
+     postid :e.target.dataset.postid
+    }
+   
+   
+    dispatch(confirmbid(selectedbid));
+
+
+    
+  }
+  function handelcheck(e){
+    toast("Bid  is alredy confirm")
+
+  }
+
   useEffect(()=>{
     setbiddata(bids)
   },[bids])
@@ -64,7 +82,7 @@ const Profile = ()=>{
        <th scope="row">{bid.postid}</th>
        <td>{bid.Biddername}</td>
        <td>{bid.Bidamount}</td>
-       <td>{ bid.status ?<button className="btn btn-primary" >Confirmed</button>:<button className="btn btn-primary" data-postid ={bid.postid} data-Biddername={post.Biddername} data-Bidamount = {post.Bidamount}>confirm</button> } </td>
+       <td  >{ bid.status ?<button className="btn btn-primary"  onClick={(e)=> handelcheck(e)}>Confirmed</button>:<button className="btn btn-primary" data-postid={bid.postid} data-Biddername={bid.Biddername}  data-Bidamount={bid.Bidamount} onClick={(e)=> handelconfirmbid(e)} >confirm</button> } </td>
      </tr>
     
 

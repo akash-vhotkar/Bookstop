@@ -48,7 +48,7 @@ const serchposts = ()=>{
 
                 }
                 else{
-                    if(err) res.statuss(400).json({err: 1 ,message:"Internal server error"});
+                     res.statuss(400).json({err: 1 ,message:"Internal server error"});
                 }
             }
             catch(err){

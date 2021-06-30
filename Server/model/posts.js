@@ -54,5 +54,9 @@ module.exports = mongoose.model("posts", {
         type: Boolean,
         required: false,
         Default: false
+    },
+    comments:{
+        type:Array,
+        required: true
     }
 })

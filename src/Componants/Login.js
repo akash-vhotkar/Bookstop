@@ -3,7 +3,7 @@ import {Link, useHistory} from 'react-router-dom';
 import { GoogleLogin} from 'react-google-login'
 import './style/login.css';
 import { toast } from 'react-toastify';
-import {login} from '../actions/index';
+import {login} from '../Actions/index';
 import { useDispatch } from 'react-redux';
 
 
