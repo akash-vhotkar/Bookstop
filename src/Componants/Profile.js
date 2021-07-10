@@ -1,52 +1,36 @@
-import { data } from 'jquery';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
 import { toast } from 'react-toastify';
-import {getbids, loginagain, confirmbid} from '../Actions/index';
+import {getbids,  confirmbid} from '../Actions/index';
+import Hoc from '../Hoc/Auth'
 
-const Profile = ()=>{
-    const authdata = useSelector(state => state.AUTH.authdata);
-    const history = useHistory();
-    const dispatch = useDispatch();
+const Profile = (props)=>{
+  const dispatch = useDispatch();
   const bids  = useSelector(state=> state.BIDS);
   const [biddata, setbiddata ] = useState([]);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const user = props.user;
   
-  
-  useEffect(()=>{
-    console.log("authdata ");
-    dispatch(getbids());
-    if(authdata === null && user !== null){
-      dispatch(loginagain(JSON.parse(localStorage.getItem('profile')), history) )
-    }
-    else if(authdata== null && user == null){
-      toast("please login");
-      history.push("/login");
-    }
-  },[])
-
   function handelconfirmbid(e){
-    console.log(e);
     const selectedbid = {
        Bidamount :e.target.dataset.bidamount,
      Biddername : e.target.dataset.biddername,
      postid :e.target.dataset.postid
     }
-   
-   
     dispatch(confirmbid(selectedbid));
-
-
-    
   }
+
+
   function handelcheck(e){
     toast("Bid  is alredy confirm")
 
   }
 
+  useEffect(()=>{
+    dispatch(getbids());
+
+  },[])
   useEffect(()=>{
     setbiddata(bids)
   },[bids])
@@ -56,7 +40,7 @@ const Profile = ()=>{
         <div className="Profile">
 
             <div className="container">
-               {authdata ?<div><h1>Hi , {authdata.result.name}</h1></div>: <h1>Hi</h1> } 
+               {user ?<div><h1>Hi , {user.result.name}</h1></div>: <h1>Hi</h1> } 
 
 
 {biddata.map(post=>(
@@ -108,4 +92,5 @@ const Profile = ()=>{
         </div>
     )
 }
-export default Profile;
+const EnhanceProfile = Hoc(Profile, true);
+export default EnhanceProfile;

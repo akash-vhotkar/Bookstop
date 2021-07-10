@@ -2,6 +2,7 @@ const { data } = require('jquery');
 const postsdb = require('../model/posts');
 const nodemailer = require('nodemailer');
 const userdb = require('../model/user');
+const { findOneAndUpdate } = require('../model/posts');
 
 
 const postcontroller = () => {
@@ -29,10 +30,23 @@ const postcontroller = () => {
         },
         async Comments(req,res){
             try{
+                const postid = req.body.postid;
+                const message = req.body.message;
+                const newcomment =  { name: req.user.name, message:message};
+                const updatedpost= await postsdb.findOneAndUpdate({_id: postid},{$push:{comments: newcomment}},{new: true});
+                console.log("server side comments  ",updatedpost.comments);
+                if(updatedpost!= null){
+                   res.status(200).json({err: 0 , message:"Comment done ", comments: updatedpost.comments, postid: postid}) 
+
+                }
+                else{
+                    res.status(500).json({err: 1 ,message:"Internal server error"});
+                }
                 
 
             }
             catch(err){
+                console.log(err);
                 if(err) res.status(500).json({err: 1,message:"Internal server error"})
             }
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API=  axios.create({baseURL: "http://localhost:7600"})
+const API=  axios.create({baseURL: "http://localhost:7770"})
 API.interceptors.request.use((req)=>{
     if (localStorage.getItem('profile')) {
         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
@@ -21,7 +21,7 @@ export const dislikepost  = (username, postid , likes)=> API.post("/posts/dislik
 export const getbids = ()=>  API.get("/posts/getbids");
 export const confrimbid = (data)=> API.post("/posts/confirm", data)
 export const Follow = (data)=> API.post("/posts/follow", data);
-
+export const comment = (data)=> API.post("/posts/comment",  data);
 
 
 

@@ -5,6 +5,8 @@ const  Comments = ()=>{
     function  handelcommentclick(e){
         e.preventDefault();
         
+    
+        
     }
     
 
@@ -17,10 +19,12 @@ const  Comments = ()=>{
             </div>
             
             <div className="d-flex">
-
+                <div>
                 <input type="text" onChange={(e)=> setmessage(e.target.value)} className=" w-100" name="" id="" placeholder="Enter your message " />
                 <button className="btn btn-primary w-20" type="submit">post</button>
+                </div>
 
+                
             </div>
         </div>
     )

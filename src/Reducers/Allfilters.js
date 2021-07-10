@@ -28,7 +28,6 @@ const allfilters = (state = inititalstate, action) => {
 
       }
     case "REMOVENAMEFILTER":
-      
       return { ...state,  namesearch: false, searchname: "" };
     default:
       return state;

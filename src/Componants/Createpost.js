@@ -1,38 +1,26 @@
 import './style/createpostform.css'
-import  { useDispatch, useSelector} from 'react-redux'
-import { useState, useEffect  } from "react";
+import  { useDispatch} from 'react-redux'
+import { useState  } from "react";
 import {useHistory} from 'react-router-dom'
 import FileBase64 from 'react-file-base64';
-import {  toast } from 'react-toastify';
-import { createpost, loginagain} from '../Actions/index'
-const Createpost = ()=>{
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  
+import { createpost} from '../Actions/index'
+import Hoc from '../Hoc/Auth'
+
+const Createpost = (props)=>{
+    
     const history = useHistory();
-    const authdata = useSelector(state => state.AUTH.authdata);
-    
-    useEffect(()=>{
-        console.log("authdata ");
-        if(authdata === null && user !== null){
-          dispatch(loginagain(JSON.parse(localStorage.getItem('profile')), history) )
-        }
-        else if(authdata== null && user == null){
-          toast("please login");
-          history.push("/login");
-        }
-      },[])
-     
-    
-    const [post ,setpost] = useState({message: "", bookname:"", selectedimage:[], amount: 0, publishyear: "", sem : 1,name:user.result.name, userimage: user.result.imageUrl, userid: user.result._id, location :""});
-    
-    
+    const [post ,setpost] = useState({message: "", bookname:"", selectedimage:[], amount: 0, publishyear: "", sem : 1, location :""});
+    const user = props.user;
+
+
     const dispatch = useDispatch();
     function handelcreatepost(e){
         e.preventDefault();
-        dispatch(createpost(post, history ));
+        dispatch(createpost(post, history, user ));
 
 
     }
+  
     
     return(
         <div className="Cretepostform">
@@ -93,4 +81,5 @@ const Createpost = ()=>{
         </div>
     )
 }
-export default Createpost;
+const EnhancePost = Hoc( Createpost, true);
+export default EnhancePost;
