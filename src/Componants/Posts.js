@@ -18,7 +18,6 @@ const Posts = (props) => {
     
     useEffect(()=>{
         dispatch(getposts())
-        
 
     },[])
     return (
@@ -36,9 +35,9 @@ const Posts = (props) => {
 
                  <Suspense fallback={<Spinner></Spinner>}>   
                     <div className="temp">
-                        {posts.copydata.map((post)=>(
+                        {posts.copydata.map((post, index)=>(
                             
-                            <Post post={post}></Post>
+                            <Post post={post} index={index} ></Post>
                         ))}
                     </div>
                     </Suspense>

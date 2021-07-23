@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { BrowserRouter as Router , Route,Switch} from 'react-router-dom'
 import { Spinner } from 'react-spinners-css';
+import Dummy from './Componants/Dummy';
 
 const Posts = lazy(()=> import('./Componants/Posts'));
 
@@ -45,6 +46,9 @@ function App() {
           <Navbar></Navbar>
           <Createpost></Createpost>
 
+        </Route>
+        <Route exact  path="/pp">
+          <Dummy></Dummy>
         </Route>
 
 

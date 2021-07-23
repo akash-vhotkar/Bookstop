@@ -17,17 +17,15 @@ const Filters =  ()=>{
     }
     
     
-    
-    
     useEffect(()=>{
        
-        if(allfilters.namesearch == true && allfilters.pricesearch== true){
+        if(allfilters.namesearch === true && allfilters.pricesearch=== true){
             dispatch({type:"NAMEANDPRICESEARCH", minamount: Math.min(...allfilters.pricearray), maxamount : Math.max(...allfilters.pricearray), name : allfilters.searchname})
         }
-        else if(allfilters.namesearch == true && allfilters.pricesearch == false){
+        else if(allfilters.namesearch === true && allfilters.pricesearch === false){
             dispatch({type:"NAMESEARCH", name : allfilters.searchname})
         }
-        else if(allfilters.namesearch == false && allfilters.pricesearch == true){
+        else if(allfilters.namesearch === false && allfilters.pricesearch === true){
             dispatch({type:"PRICESEARCH", minamount: Math.min(...allfilters.pricearray), maxamount : Math.max(...allfilters.pricearray)})
 
         }
@@ -38,10 +36,6 @@ const Filters =  ()=>{
     },[allfilters])
 
 
-    function handelallsearches(){
-        
-    }
-    
     
     
     function handelpricesearch(e){
@@ -62,16 +56,16 @@ const Filters =  ()=>{
         let name= e.target.name;
         let checkedstatus =  e.target.checked;
         if(checkedstatus=== true){
-            if(name== "price1")       dispatch({type:"ADDPRICE", data:"400-700",minamount: 400, maxamount: 700});
-            else if(name=="price2")       dispatch({type:"ADDPRICE", data:"800-1000", minamount: 800, maxamount: 1000});
+            if(name=== "price1")       dispatch({type:"ADDPRICE", data:"400-700",minamount: 400, maxamount: 700});
+            else if(name==="price2")       dispatch({type:"ADDPRICE", data:"800-1000", minamount: 800, maxamount: 1000});
             else if(name==="price3")       dispatch({type:"ADDPRICE", data:"1100-1300", minamount: 1100, maxamount: 1300});
             else  dispatch({type:"ADDPRICE", data:"1400-1600", minamount:1400, maxamount: 1600})
 
 
         }
         else{
-            if(name== "price1")       dispatch({type:"REMOVEPRICEFILTER", data:"400-700", minamount: 400, maxamount: 700});
-            else if(name=="price2")    dispatch({type:"REMOVEPRICEFILTER", data:"800-1000", minamount: 800, maxamount: 1000});
+            if(name=== "price1")       dispatch({type:"REMOVEPRICEFILTER", data:"400-700", minamount: 400, maxamount: 700});
+            else if(name==="price2")    dispatch({type:"REMOVEPRICEFILTER", data:"800-1000", minamount: 800, maxamount: 1000});
             else if(name==="price3")       dispatch({type:"REMOVEPRICEFILTER", data:"1100-1300", minamount: 1100, maxamount: 1300});
             else  dispatch({type:"REMOVEPRICEFILTER", data:"1400-1600", minamount: 1400, maxamount: 1600})
 
@@ -79,9 +73,9 @@ const Filters =  ()=>{
         }
         
         
-       if(name=="price1")  setpricefilter({...pricefilter, price1:  checkedstatus});
-       else if(name=="price2") setpricefilter({...pricefilter, price2: checkedstatus});
-       else if(name== "price3") setpricefilter({...pricefilter , price3 :checkedstatus});
+       if(name==="price1")  setpricefilter({...pricefilter, price1:  checkedstatus});
+       else if(name==="price2") setpricefilter({...pricefilter, price2: checkedstatus});
+       else if(name=== "price3") setpricefilter({...pricefilter , price3 :checkedstatus});
        else setpricefilter({...pricefilter, price4 :checkedstatus}); 
        
     }
@@ -89,7 +83,7 @@ const Filters =  ()=>{
     return (
         <div className="Filters">
            <h4>All Filter </h4>
-                    <a href="" onClick={handelclearallfilters}>clear all filters</a>
+                    <p  onClick={handelclearallfilters} style={{color:"blue"}}>clear all filters</p>
 
                     <div className="allfileter mt-4">
                             <div className="form-group w-100 ">

@@ -4,31 +4,31 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import '../style/postsstyle.css'
 import { useHistory } from 'react-router-dom';
-
 import { toast } from 'react-toastify';
 import { likepost, dislike ,Bid, comment} from '../../Actions/index';
 
-const Post = ({ post }) => {
+const Post = ({ post , index}) => {
+
     const history = useHistory();
     const authdata = useSelector(state => state.AUTH.authdata);
     const dispatch = useDispatch();
     const [likestate, setlikestate] = useState([]);
-   
     const [message, setmessage] = useState("");
     const [bidamount, setbidamount] = useState(0);
-    const [isdisplaycomment, setdisplaycomment] = useState(false);
+   const [showcomments , setshowcomments] = useState({});
 
     function handelcommentclick(e) {
-        const postid = e.target.dataset.postid;
-        const data = {postid : postid, message:message};
-        console.log(" before dispatch  ", message);
-        dispatch(comment(data)); 
-        setmessage("");
-        console.log("after dispatch  ", message);
-     
-     
+        if(authdata !== null){
+            const postid = e.target.dataset.postid;
+            const data = {postid : postid, message:message};
+            console.log(" before dispatch  ", message);
+            dispatch(comment(data)); 
+            setmessage("");
+        }
+        else{
+            toast("please login")
+        }
     }
-
 
     function handelbid(e){
         if(authdata){
@@ -46,12 +46,6 @@ const Post = ({ post }) => {
         }        
         
     }
-
-    function handelcommenticonclick(e){
-        
-    }
-
-
 
     function handellike(e) {
         const postid = e.target.dataset.postid;
@@ -73,18 +67,17 @@ const Post = ({ post }) => {
         }
     }
 
-    function handelcommenticonclick(e){
-      const commentdiv =  e.target.parentNode.parentNode.childNodes[1];
-        console.log(" the comment section ",commentdiv.style);
-      console.log(commentdiv.style.display);
-      if(commentdiv.style.display === "none"){
-        commentdiv.style.display="block";
+    function handelcommenticonclick(index){
+       setshowcomments(prevcomments => ({
+           ...prevcomments,
+           [index]:  !prevcomments[index]
 
-      }
-      else{
-        commentdiv.style.display="none";
-      }
-      
+           }
+       ))
+        
+        
+
+       
     }
 
 
@@ -95,6 +88,7 @@ const Post = ({ post }) => {
 
     return (
         <div className="POST">
+            {console.log(index)}
             <div key={post._id} className="mt-2">
                 <div className="card" style={{ width: "80%" }}>
                     <div className="creator">
@@ -117,24 +111,25 @@ const Post = ({ post }) => {
 
                         <div className="d-flex icons">
                             <div data-postid={post._id} data-likes={post.likes} onClick={(e) => handellike(e)}>  <FaThumbsUp /> like {post.likes} </div>
-                            <div onClick={(e) => handelcommenticonclick(e) } data-postid={post._id}><FaCommentDots></FaCommentDots> comments</div>
+                            <div    onClick={(e)=> handelcommenticonclick(index)}  >   <FaCommentDots></FaCommentDots> comments</div>
                             <div>
                                 <input type="number" onChange={(e)=> setbidamount(e.target.value)} value={bidamount} name="bidamount" id="" />
                             </div>
                             <div> <button className="btn btn-primary" data-postid= {post._id} data-bookname={post.bookname} onClick={(e)=> handelbid(e)}> Bid</button> </div>
                         </div>
-                        <div className={post._id}  style={{display:"none"}}>
+                       { showcomments[index] ? <div>
                             <div>
-                                {post.comments.map((com, index)=>(
+                                {  post.comments.map((com, index)=>(
                                     <div key={index}>
                                         <b>{com.name}</b>
                                         <p>{com.message}</p>
 
                                     </div>
-                                ))}
+                                )) }
                             </div>
                            
                         </div>
+                          : null} 
                         <div className="d-flex">
 
 <input type="text" value={message} onChange={(e) => setmessage(e.target.value)} className=" w-100" name="" id="" placeholder="Enter your message " />

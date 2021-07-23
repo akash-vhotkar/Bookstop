@@ -7,7 +7,6 @@ const  authreducerfun = (state= {authdata: null},  action)=>{
         localStorage.clear();
         return {...state, authdata: null}
       case "LOGINAGRAIN":
-        console.log(action);
         return  {...state, authdata:  action.data}
       default:
           return state

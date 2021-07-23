@@ -49,6 +49,15 @@ export const comment = (comment) => async (dispatch) => {
     }
 
 }
+export const logout = (history)=> async (dispatch)=>{
+    try{
+        
+
+    }
+    catch(err){
+        if(err) console.log(err);
+    }
+}
 export const register = (formdata, history) => async (dispatch) => {
     try {
         if (formdata?.googleId != undefined) {
@@ -81,7 +90,7 @@ export const register = (formdata, history) => async (dispatch) => {
 export const loginagain = (localdata, history, token) => async (dispatch) => {
     try {
         const res = await api.loginagain(token)
-        if (res.data.err == 0) {
+        if (res.data.err === 0) {
             dispatch({ type: "LOGINAGRAIN", data: localdata });
         }
         else {

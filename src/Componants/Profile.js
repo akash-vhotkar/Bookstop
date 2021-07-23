@@ -13,12 +13,19 @@ const Profile = (props)=>{
   const user = props.user;
   
   function handelconfirmbid(e){
+    if(user !== null){
+
+    
     const selectedbid = {
        Bidamount :e.target.dataset.bidamount,
      Biddername : e.target.dataset.biddername,
      postid :e.target.dataset.postid
     }
     dispatch(confirmbid(selectedbid));
+  }
+  else{
+    toast("please login")
+  }
   }
 
 

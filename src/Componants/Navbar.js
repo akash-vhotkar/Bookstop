@@ -3,15 +3,18 @@ import { Link,  useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
+
 const Navbar = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
     function handellogout() {
+        localStorage.clear()
         dispatch({ type: "LOGOUT" });
-        history.push("/");
+        
         toast("Log out successfully")
     }
+
     const user = useSelector(state => state.AUTH.authdata);
    
     return (

@@ -45,7 +45,7 @@ const auth = () => {
 
             }
             catch (err) {
-                console.log(err);
+                
                 if (err) res.status(500).json({ err: 1, message: "Internal server error" })
             }
         }
